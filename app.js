@@ -3,11 +3,16 @@ const app = express();
 const morgan = require('morgan');
 const layout = require('./views/layout.js');
 const models = require('./models');
+const wikiRouter = require('./routes/wiki.js');
+const userRouter = require('./routes/user.js');
 
 app.use(morgan('dev'));
 app.use(express.static('./static')); //reads css and html files -- or any static files
 
 app.use(express.urlencoded({ extended: false }));
+
+app.use('/wiki', wikiRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res, next) => {
   res.send(layout('hello world!'));
