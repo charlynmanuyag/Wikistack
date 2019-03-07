@@ -21,6 +21,8 @@ const Page = db.define('page', {
   },
 });
 
+const pages = Page.findAll();
+
 Page.beforeValidate((pageInstance, optionsObject) => {
   pageInstance.slug = pageInstance.title.replace(/\s+/g, '_').replace(/\W/, '');
   console.log(pageInstance.slug);
@@ -45,4 +47,5 @@ module.exports = {
   db,
   Page,
   User,
+  pages,
 };
