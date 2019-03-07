@@ -3,8 +3,6 @@ const app = express();
 const morgan = require('morgan');
 const layout = require('./views/layout.js');
 const models = require('./models');
-// const {Page} = require('./models');
-// const {User} = require('./models');
 
 app.use(morgan('dev'));
 app.use(express.static('./static')); //reads css and html files -- or any static files
@@ -22,8 +20,7 @@ models.db.authenticate().then(() => {
 const PORT = 1337;
 
 const init = async () => {
-  await models.User.sync();
-  await models.Page.sync();
+  await models.db.sync({ force: true });
 
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

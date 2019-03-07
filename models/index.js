@@ -1,15 +1,26 @@
 const Sequelize = require('sequelize');
-const db = new Sequelize('postgres://localhost:5432/wikistack');
+const db = new Sequelize('postgres://localhost:5432/wikistack', {
+  logging: false,
+});
 
 const Page = db.define('page', {
   title: {
     type: Sequelize.STRING,
+    validate: {
+      allowNull: false,
+    },
   },
   slug: {
     type: Sequelize.STRING,
+    validate: {
+      allowNull: false,
+    },
   },
   content: {
     type: Sequelize.TEXT,
+    validate: {
+      allowNull: false,
+    },
   },
   status: {
     type: Sequelize.ENUM('open, closed'),
@@ -19,11 +30,17 @@ const Page = db.define('page', {
 const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
+    validate: {
+      allowNull: false,
+    },
   },
   email: {
     type: Sequelize.STRING,
-    unique: true,
-    isEmail: true,
+    validate: {
+      allowNull: false,
+      unique: true,
+      isEmail: true,
+    },
   },
 });
 
